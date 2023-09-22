@@ -1,5 +1,6 @@
 ﻿using EgretApi.DataAccessLayer;
 using EgretApi.DataAccessLayer.Mappers;
+using EgretApi.DataAccessLayer.Models;
 using EgretApi.JsonModels;
 using EgretApi.Models.GeoJson;
 using EgretApi.Utilities;
@@ -23,18 +24,22 @@ namespace EgretApi.Services.GeoJson
         {
             ServiceResult<int> result = new ServiceResult<int>();
 
-            var entity = 
-                new ColdCallingControlledZone(json.Type,json.Geometry.Type,json.Geometry.Coordinates,json.Properties);
+            var dto = 
+                new ColdCallingControlledZoneDto(json.Type,json.Geometry.Type,json.Geometry.Coordinates,json.Properties);
 
-            if(!entity.IsValid)
+            if(!dto.IsValid)
                 return result;
 
-            var uow = new UnitOfWork(dbContext);
-            var repo = uow.Repository<DataAccessLayer.Models.ColdCallingControlledZone>();
-            repo.Add(entity.Map());
-            uow.Commit();
+            var entity = dto.Map();
 
-            result = new ServiceResult<int>(entity.Properties.ObjectId);
+            using (var uow = new UnitOfWork(dbContext))
+            {
+                var repo = uow.Repository<ColdCallingControlledZone>();
+                repo.Add(entity);
+                uow.Commit();
+            }
+
+            result = new ServiceResult<int>(entity.Id);
 
             return result;
         }

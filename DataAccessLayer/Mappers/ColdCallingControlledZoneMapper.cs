@@ -2,13 +2,15 @@
 using Newtonsoft.Json;
 using EgretApi.Models.GeoJson.Properties;
 using EgretApi.Models.GeoJson.Coordinates;
+using EgretApi.Types;
+using EgretApi.Models.GeoJson;
 
 namespace EgretApi.DataAccessLayer.Mappers
 {
     public static class ColdCallingControlledZoneMapper
     {
         public static ColdCallingControlledZone Map(
-            this EgretApi.Models.GeoJson.ColdCallingControlledZone dto)
+            this ColdCallingControlledZoneDto dto)
         {
             return new ColdCallingControlledZone
             {
@@ -17,40 +19,44 @@ namespace EgretApi.DataAccessLayer.Mappers
                 Ward = dto.Properties.Ward,
                 Geometry = new ColdCallingControlledZoneGeometry
                 {
+                    GeometryType = (int)dto.Geometry.Type,
                     Coordinates = JsonConvert.SerializeObject(dto.Geometry.Coordinates),
                 },
             };
         }
         public static ColdCallingControlledZone Map(
             this ColdCallingControlledZone entity,
-            EgretApi.Models.GeoJson.ColdCallingControlledZone dto)
+            ColdCallingControlledZoneDto dto)
         {
             entity.ObjectId = dto.Properties.ObjectId;
             entity.Zones = dto.Properties.Zones;
             entity.Ward = dto.Properties.Ward;
             entity.Geometry.ColdCallingControlledZoneID = entity.Id;
+            entity.Geometry.GeometryType = (int)dto.Geometry.Type;
             entity.Geometry.Coordinates = JsonConvert.SerializeObject(dto.Geometry.Coordinates);
 
             return entity;
         }
 
 
-        public static EgretApi.Models.GeoJson.ColdCallingControlledZone Map(
+        public static ColdCallingControlledZoneDto Map(
             this ColdCallingControlledZone entity)
         {
-            return new EgretApi.Models.GeoJson.ColdCallingControlledZone
+            return new ColdCallingControlledZoneDto
             {
-                Type = Types.FeatureType.Feature,
+                Id = entity.Id,
+                Type = FeatureType.Feature,
                 Properties = new ColdCallingControlledZonesProperties
                 {
                     ObjectId = entity.ObjectId,
                     Zones = entity.Zones,
                     Ward = entity.Ward,
                 },
-                Geometry = new EgretApi.Models.GeoJson.Geometry<Polygon> 
+                Geometry = new Geometry<Polygon> 
                 {
-                    Type = Types.GeometryType.Polygon,
-                    Coordinates = new EgretApi.Models.GeoJson.Coordinates.Polygon(
+                    Id = entity.Geometry.Id,
+                    Type = (GeometryType)entity.Geometry.GeometryType,
+                    Coordinates = new Polygon(
                         JsonConvert.DeserializeObject<List<List<List<double>>>>(entity.Geometry.Coordinates))
                 },
             };

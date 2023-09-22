@@ -5,10 +5,10 @@ using EgretApi.Types;
 
 namespace EgretApi.Models.GeoJson
 {
-    public class ColdCallingControlledZone : Feature<Polygon>
+    public class ColdCallingControlledZoneDto : Feature<Polygon>
     {
-        public ColdCallingControlledZone() {}
-        public ColdCallingControlledZone(
+        public ColdCallingControlledZoneDto() {}
+        public ColdCallingControlledZoneDto(
             string featureType, 
             string geometryType,
             List<List<List<double>>> coordinates,
