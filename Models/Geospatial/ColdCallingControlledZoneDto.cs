@@ -1,9 +1,9 @@
 ﻿using EgretApi.JsonModels;
-using EgretApi.Models.GeoJson.Coordinates;
-using EgretApi.Models.GeoJson.Properties;
+using EgretApi.Models.Geospatial.Coordinates;
+using EgretApi.Models.Geospatial.Properties;
 using EgretApi.Types;
 
-namespace EgretApi.Models.GeoJson
+namespace EgretApi.Models.Geospatial
 {
     public class ColdCallingControlledZoneDto : Feature<Polygon>
     {
@@ -12,7 +12,7 @@ namespace EgretApi.Models.GeoJson
             string featureType, 
             string geometryType,
             List<List<List<double>>> coordinates,
-            ColdCallingControlledZoneJson.Property properties) 
+            CreateColdCallingControlledZoneRequest.Property properties) 
         {
 
             if (!String.IsNullOrEmpty(featureType) &&

@@ -1,6 +1,6 @@
 ﻿using EgretApi.Types;
 
-namespace EgretApi.Models.GeoJson
+namespace EgretApi.Models.Geospatial
 {
     public class Geometry<T> where T : new()
     {

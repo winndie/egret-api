@@ -1,4 +1,4 @@
-﻿namespace EgretApi.Models.GeoJson.Properties
+﻿namespace EgretApi.Models.Geospatial.Properties
 {
     public class ColdCallingControlledZonesProperties
     {

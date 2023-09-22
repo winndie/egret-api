@@ -1,4 +1,4 @@
-﻿namespace EgretApi.Models.GeoJson.Coordinates
+﻿namespace EgretApi.Models.Geospatial.Coordinates
 {
     public class LineString
     {

@@ -1,9 +1,10 @@
 ﻿using EgretApi.DataAccessLayer.Models;
 using Newtonsoft.Json;
-using EgretApi.Models.GeoJson.Properties;
-using EgretApi.Models.GeoJson.Coordinates;
+using EgretApi.Models.Geospatial.Properties;
+using EgretApi.Models.Geospatial.Coordinates;
 using EgretApi.Types;
-using EgretApi.Models.GeoJson;
+using EgretApi.Models.Geospatial;
+using EgretApi.RequestModels;
 
 namespace EgretApi.DataAccessLayer.Mappers
 {
@@ -26,14 +27,10 @@ namespace EgretApi.DataAccessLayer.Mappers
         }
         public static ColdCallingControlledZone Map(
             this ColdCallingControlledZone entity,
-            ColdCallingControlledZoneDto dto)
+            UpdateColdCallingControlledZoneRequest request)
         {
-            entity.ObjectId = dto.Properties.ObjectId;
-            entity.Zones = dto.Properties.Zones;
-            entity.Ward = dto.Properties.Ward;
-            entity.Geometry.ColdCallingControlledZoneID = entity.Id;
-            entity.Geometry.GeometryType = (int)dto.Geometry.Type;
-            entity.Geometry.Coordinates = JsonConvert.SerializeObject(dto.Geometry.Coordinates);
+            entity.Zones = request.Zones;
+            entity.Ward = request.Ward;
 
             return entity;
         }

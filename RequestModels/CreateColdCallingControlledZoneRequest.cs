@@ -1,6 +1,6 @@
 ﻿namespace EgretApi.JsonModels
 {
-    public class ColdCallingControlledZoneJson : FeatureJson<List<List<List<double>>>>
+    public class CreateColdCallingControlledZoneRequest : FeatureRequest<List<List<List<double>>>>
     {
         public Property Properties { get; set; } = new Property();
         public class Property

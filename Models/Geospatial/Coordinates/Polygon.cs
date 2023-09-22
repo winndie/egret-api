@@ -1,17 +1,17 @@
-﻿namespace EgretApi.Models.GeoJson.Coordinates
+﻿namespace EgretApi.Models.Geospatial.Coordinates
 {
-    public class MultiLineString
+    public class Polygon
     {
         public List<LineString> Coordinates { get; set; } = new List<LineString>();
 
-        public MultiLineString(List<LineString> coordinates)
+        public Polygon(List<LineString> coordinates)
         {
             Coordinates = coordinates;
         }
-        public MultiLineString(List<List<List<double>>> coordinates)
+        public Polygon(List<List<List<double>>> coordinates)
         {
             Coordinates = coordinates.Select(x => new LineString(x)).ToList();
         }
-        public MultiLineString() { }
+        public Polygon() { }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using EgretApi.Types;
 
-namespace EgretApi.Models.GeoJson
+namespace EgretApi.Models.Geospatial
 {
     public class Feature<T> where T : new()
     {

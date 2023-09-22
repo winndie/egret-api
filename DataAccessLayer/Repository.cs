@@ -29,5 +29,9 @@ namespace EgretApi.DataAccessLayer
         {
             _dbSet.Update(entity);
         }
+        public void Delete(T entity)
+        {
+            _dbSet.Remove(entity);
+        }
     }
 }

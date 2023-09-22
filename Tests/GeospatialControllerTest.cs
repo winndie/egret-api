@@ -6,13 +6,13 @@ using Xunit;
 
 namespace EgretApi.Tests
 {
-    public class GeoJsonControllerTest : GeoJsonServiceTest
+    public class GeospatialControllerTest : GeospatialServiceTest
     {
-        internal readonly GeoJsonController controller;
+        internal readonly GeospatialController controller;
 
-        public GeoJsonControllerTest() : base()
+        public GeospatialControllerTest() : base()
         {
-            controller = new GeoJsonController(this.geoJsonService);
+            controller = new GeospatialController(this.geoJsonService);
         }
 
         [Theory]
@@ -21,7 +21,7 @@ namespace EgretApi.Tests
         public void CreateColdCallingControlledZone_Controller(int returnType, string featureType, string geometryType)
         {
             // Arrange
-            var json = JsonConvert.DeserializeObject<ColdCallingControlledZoneJson>(
+            var json = JsonConvert.DeserializeObject<CreateColdCallingControlledZoneRequest>(
                 "{ \"type\": \""+ featureType + "\", \"properties\": { \"OBJECTID\": 113, \"ZONES\": \"Mendip Close\", \"WARD\": \"Huntington and New Earswick\" }, \"geometry\": { \"type\": \"" + geometryType + "\", \"coordinates\": [ [ [0,0],[0,0],[0,0] ] ] } }");
 
             // Act
