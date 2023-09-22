@@ -1,5 +1,6 @@
 ﻿using EgretApi.DataAccessLayer;
 using EgretApi.JsonModels;
+using EgretApi.Models.GeoJson;
 using EgretApi.Services.GeoJson;
 using EgretApi.Utilities;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +16,15 @@ namespace EgretApi.Controllers
         public GeoJsonController(IGeoJsonService service)
         {
             geoJsonReaderService = service;
+        }
+
+        [HttpGet("ColdCallingControlledZone/{Id}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ColdCallingControlledZoneDto))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult GetColdCallingControlledZone(int Id)
+        {
+            ServiceResult<ColdCallingControlledZoneDto> result = geoJsonReaderService.GetColdCallingControlledZone(Id);
+            return result.IsSuccess ? Ok(result.Data) : NotFound();
         }
 
         [HttpPost("ColdCallingControlledZone")]

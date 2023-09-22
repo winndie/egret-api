@@ -15,11 +15,38 @@ namespace EgretApi.Services.GeoJson
             dbContext = context;
         }
 
+        public GeoJsonService() { }
+
+        /// <summary>
+        /// Get a ColdCallingControlledZone from database
+        /// </summary>
+        /// <param name="Id">The Id of the entity</param>
+        /// <returns>ServiceResult<ColdCallingControlledZoneDto></returns>
+        public ServiceResult<ColdCallingControlledZoneDto> GetColdCallingControlledZone(int Id)
+        {
+            ServiceResult<ColdCallingControlledZoneDto> result = new ServiceResult<ColdCallingControlledZoneDto>();
+
+            using (var uow = new UnitOfWork(dbContext))
+            {
+                var repo = uow.Repository<ColdCallingControlledZone>();
+                var entity = repo.GetById(Id);
+
+                if (entity == null)
+                {
+                    return result;
+                }
+
+                result = new ServiceResult<ColdCallingControlledZoneDto>(entity.Map());
+            }
+
+            return result;
+        }
+
         /// <summary>
         /// Insert a row to ColdCallingControlledZone
         /// </summary>
         /// <param name="json">The json string</param>
-        /// <returns>ServiceResult<GeoJsonFeature></returns>
+        /// <returns>ServiceResult<int></returns>
         public ServiceResult<int> CreateColdCallingControlledZone(ColdCallingControlledZoneJson json)
         {
             ServiceResult<int> result = new ServiceResult<int>();

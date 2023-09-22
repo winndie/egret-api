@@ -6,6 +6,8 @@ namespace EgretApi.DataAccessLayer
     {
         private readonly GeospatialContext _dbContext;
         private bool _disposed;
+
+        public UnitOfWork() { }
         public UnitOfWork(GeospatialContext dbContext)
         {
             _dbContext = dbContext;

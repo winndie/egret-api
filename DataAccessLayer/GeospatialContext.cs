@@ -5,12 +5,13 @@ namespace EgretApi.DataAccessLayer
 {
     public class GeospatialContext : DbContext
     {
+        public GeospatialContext() { }
         public GeospatialContext(DbContextOptions<GeospatialContext> options): base(options)
         {
         }
 
-        public DbSet<ColdCallingControlledZone> ColdCallingControlledZones { get; set; }
-        public DbSet<ColdCallingControlledZoneGeometry> ColdCallingControlledZoneGeometries { get; set; }
+        public virtual DbSet<ColdCallingControlledZone> ColdCallingControlledZones { get; set; }
+        public virtual DbSet<ColdCallingControlledZoneGeometry> ColdCallingControlledZoneGeometries { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
         }

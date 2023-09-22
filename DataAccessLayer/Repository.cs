@@ -10,6 +10,8 @@ namespace EgretApi.DataAccessLayer
         {
             return _dbSet.Find(id);
         }
+
+        public Repository() { }
         public Repository(GeospatialContext dbContext)
         {
             _dbContext = dbContext;

@@ -52,13 +52,13 @@ namespace EgretApi.DataAccessLayer.Mappers
                     Zones = entity.Zones,
                     Ward = entity.Ward,
                 },
-                Geometry = new Geometry<Polygon> 
-                {
-                    Id = entity.Geometry.Id,
-                    Type = (GeometryType)entity.Geometry.GeometryType,
-                    Coordinates = new Polygon(
-                        JsonConvert.DeserializeObject<List<List<List<double>>>>(entity.Geometry.Coordinates))
-                },
+                //Geometry = new Geometry<Polygon> 
+                //{
+                //    Id = entity.Geometry.Id,
+                //    Type = (GeometryType)entity.Geometry.GeometryType,
+                //    Coordinates = new Polygon(
+                //        JsonConvert.DeserializeObject<List<List<List<double>>>>(entity.Geometry.Coordinates))
+                //},
             };
         }
     }
