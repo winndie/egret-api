@@ -5,6 +5,7 @@ using EgretApi.JsonModels;
 using EgretApi.Models.Geospatial;
 using EgretApi.RequestModels;
 using EgretApi.Utilities;
+using Microsoft.EntityFrameworkCore;
 
 namespace EgretApi.Services.Geospatial
 {
@@ -29,8 +30,7 @@ namespace EgretApi.Services.Geospatial
 
             using (var uow = new UnitOfWork(dbContext))
             {
-                var repo = uow.Repository<ColdCallingControlledZone>();
-                var entity = repo.GetById(Id);
+                var entity = dbContext.ColdCallingControlledZones.Include(x => x.Geometry).FirstOrDefault(x => x.Id == Id);
 
                 if (entity == null)
                 {

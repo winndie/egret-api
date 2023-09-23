@@ -17,5 +17,6 @@ namespace EgretApi.DataAccessLayer.Models
 
         [Required]
         public string Coordinates { get; set; }
+        public virtual ColdCallingControlledZone ColdCallingControlledZone { get; set; }
     }
 }

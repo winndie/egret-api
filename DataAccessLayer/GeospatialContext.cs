@@ -20,10 +20,10 @@ namespace EgretApi.DataAccessLayer
             modelBuilder.Entity<ColdCallingControlledZone>().HasKey(x => x.Id);
             modelBuilder.Entity<ColdCallingControlledZoneGeometry>().HasKey(x => x.Id);
 
-            //modelBuilder.Entity<ColdCallingControlledZone>()
-            //    .HasOne<ColdCallingControlledZoneGeometry>()
-            //    .WithOne()
-            //    .HasForeignKey("ColdCallingControlledZoneID");
+            modelBuilder.Entity<ColdCallingControlledZone>()
+                .HasOne(x => x.Geometry)
+                .WithOne(x => x.ColdCallingControlledZone)
+                .HasForeignKey<ColdCallingControlledZoneGeometry>(x => x.ColdCallingControlledZoneID);
         }
     }
 }
