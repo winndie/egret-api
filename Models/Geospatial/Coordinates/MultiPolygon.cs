@@ -1,18 +1,11 @@
 ﻿namespace EgretApi.Models.Geospatial.Coordinates
 {
-    public class MultiPolygon
+    public class MultiPolygon: List<Polygon>
     {
-        public List<Polygon> Coordinates { get; set; } = new List<Polygon>();
-
-        public MultiPolygon(List<Polygon> coordinates)
-        {
-            Coordinates = coordinates;
-        }
-        public MultiPolygon(List<List<List<List<double>>>> coordinates)
-        {
-            Coordinates = coordinates.Select(x => new Polygon(x)).ToList();
-        }
-
         public MultiPolygon() { }
+        public MultiPolygon(List<Polygon> coordinates)
+            :base(coordinates) { }
+        public MultiPolygon(List<List<List<List<double>>>> coordinates)
+            :base(coordinates.Select(x => new Polygon(x)).ToList()) { }
     }
 }

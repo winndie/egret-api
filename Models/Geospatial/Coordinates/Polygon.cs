@@ -1,17 +1,12 @@
 ﻿namespace EgretApi.Models.Geospatial.Coordinates
 {
-    public class Polygon
+    public class Polygon: List<LineString>
     {
-        public List<LineString> Coordinates { get; set; } = new List<LineString>();
-
-        public Polygon(List<LineString> coordinates)
-        {
-            Coordinates = coordinates;
-        }
-        public Polygon(List<List<List<double>>> coordinates)
-        {
-            Coordinates = coordinates.Select(x => new LineString(x)).ToList();
-        }
         public Polygon() { }
+
+        public Polygon(List<LineString> coordinates) 
+            : base(coordinates) { }
+        public Polygon(List<List<List<double>>> coordinates) 
+            : base(coordinates.Select(x => new LineString(x)).ToList()) { }
     }
 }

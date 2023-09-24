@@ -1,18 +1,11 @@
 ﻿namespace EgretApi.Models.Geospatial.Coordinates
 {
-    public class LineString
+    public class LineString : List<Point>
     {
-        public List<Point> Coordinates { get; set; } = new List<Point>();
-
-        public LineString(List<Point> coordinates)
-        {
-            Coordinates = coordinates;
-        }
-
-        public LineString(List<List<double>> coordinates)
-        {
-            Coordinates = coordinates.Select(x=>new Point(x)).ToList();
-        }
         public LineString() { }
+        public LineString(List<Point> coordinates)
+            :base(coordinates) { }
+        public LineString(List<List<double>> coordinates)
+            : base(coordinates.Select(x => new Point(x)).ToList()) { }
     }
 }
