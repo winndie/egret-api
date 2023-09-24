@@ -11,12 +11,11 @@ namespace EgretApi.Services.Geospatial
 {
     public class GeospatialService : IGeospatialService
     {
-        private readonly GeospatialContext dbContext;
-        public GeospatialService(GeospatialContext context)
+        private readonly DatabaseContext dbContext;
+        public GeospatialService(DatabaseContext context)
         {
             dbContext = context;
         }
-
         public GeospatialService() { }
 
         /// <summary>
@@ -42,7 +41,6 @@ namespace EgretApi.Services.Geospatial
 
             return result;
         }
-
         /// <summary>
         /// Insert a row to ColdCallingControlledZone
         /// </summary>
@@ -63,14 +61,13 @@ namespace EgretApi.Services.Geospatial
             using (var uow = new UnitOfWork(dbContext))
             {
                 var repo = uow.Repository<ColdCallingControlledZone>();
-                repo.Add(entity);
+                repo.Create(entity);
                 uow.Commit();
                 result = new ServiceResult<int>(entity.Id);
             }
 
             return result;
         }
-
         /// <summary>
         /// Update a row in ColdCallingControlledZone
         /// </summary>

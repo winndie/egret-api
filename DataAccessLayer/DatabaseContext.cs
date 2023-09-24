@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EgretApi.DataAccessLayer
 {
-    public class GeospatialContext : DbContext
+    public class DatabaseContext : DbContext
     {
-        public GeospatialContext() { }
-        public GeospatialContext(DbContextOptions<GeospatialContext> options): base(options)
+        public DatabaseContext() { }
+        public DatabaseContext(DbContextOptions<DatabaseContext> options): base(options)
         {
         }
 

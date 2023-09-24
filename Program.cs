@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 var startup = new Startup(builder.Configuration);
 
-builder.Services.AddDbContextPool<GeospatialContext>(o => o.UseSqlServer(startup.DbConnectionString));
+builder.Services.AddDbContextPool<DatabaseContext>(o => o.UseSqlServer(startup.DbConnectionString));
 
 // Add services to the container.
 builder.Services.AddScoped<IGeospatialService, GeospatialService>();

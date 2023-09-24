@@ -21,11 +21,11 @@ namespace EgretApi.Tests
         public void CreateColdCallingControlledZone_Controller(int returnType, string featureType, string geometryType)
         {
             // Arrange
-            var json = JsonConvert.DeserializeObject<CreateColdCallingControlledZoneRequest>(
+            var request = JsonConvert.DeserializeObject<CreateColdCallingControlledZoneRequest>(
                 "{ \"type\": \""+ featureType + "\", \"properties\": { \"OBJECTID\": 113, \"ZONES\": \"Mendip Close\", \"WARD\": \"Huntington and New Earswick\" }, \"geometry\": { \"type\": \"" + geometryType + "\", \"coordinates\": [ [ [0,0],[0,0],[0,0] ] ] } }");
 
             // Act
-            var result = json != null? controller.CreateColdCallingControlledZone(json):null;
+            var result = request != null? controller.CreateColdCallingControlledZone(request) :null;
 
             // Assert
             Assert.NotNull(result);            

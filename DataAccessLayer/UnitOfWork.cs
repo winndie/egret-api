@@ -4,11 +4,11 @@ namespace EgretApi.DataAccessLayer
 {
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
-        private readonly GeospatialContext _dbContext;
+        private readonly DatabaseContext _dbContext;
         private bool _disposed;
 
         public UnitOfWork() { }
-        public UnitOfWork(GeospatialContext dbContext)
+        public UnitOfWork(DatabaseContext dbContext)
         {
             _dbContext = dbContext;
         }

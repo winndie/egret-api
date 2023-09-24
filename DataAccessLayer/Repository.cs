@@ -4,7 +4,7 @@ namespace EgretApi.DataAccessLayer
 {
     public class Repository<T> : IRepository<T> where T : class
     {
-        private readonly GeospatialContext _dbContext;
+        private readonly DatabaseContext _dbContext;
         private readonly DbSet<T> _dbSet;
         public T GetById(object id)
         {
@@ -12,7 +12,7 @@ namespace EgretApi.DataAccessLayer
         }
 
         public Repository() { }
-        public Repository(GeospatialContext dbContext)
+        public Repository(DatabaseContext dbContext)
         {
             _dbContext = dbContext;
             _dbSet = _dbContext.Set<T>();
@@ -21,7 +21,7 @@ namespace EgretApi.DataAccessLayer
         {
             return _dbSet.ToList();
         }
-        public void Add(T entity)
+        public void Create(T entity)
         {
             _dbSet.Add(entity);
         }
