@@ -4,7 +4,8 @@ using System.Linq.Expressions;
 
 namespace EgretApi.Tests.Mocks
 {
-    public class MockRepo<T>: Mock<DbSet<T>> where T : class
+    public class MockRepo<T>: Mock<DbSet<T>> 
+        where T : class
     {
         public MockRepo() { }
         public MockRepo(List<T> data)
@@ -19,12 +20,15 @@ namespace EgretApi.Tests.Mocks
 
             base.Setup(x => x.Find(It.IsAny<object[]>())).Returns((object[] args) =>
             {
-                var param = Expression.Parameter(typeof(T), "t");
+                var param = Expression.Parameter(typeof(T));
                 var col = Expression.Property(param, primaryKey.Name);
                 var body = Expression.Equal(col, Expression.Constant(args[0]));
                 var predicate = Expression.Lambda<Func<T, bool>>(body, param);
                 return data.AsQueryable<T>().FirstOrDefault(predicate);
             });
+
+            base.Setup(x => x.Add(It.IsAny<T>())).Callback<T>(x => data.Add(x));
+            base.Setup(x => x.Remove(It.IsAny<T>())).Callback<T>(x => data.Remove(x));
         }
     }
 }

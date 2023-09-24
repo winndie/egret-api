@@ -19,14 +19,18 @@ namespace EgretApi.Tests
 
         public GeospatialServiceTest()
         {
-            dbContext = new Mock<DatabaseContext>();
-            coldCallRepo = new MockRepo<ColdCallingControlledZone>(new List<ColdCallingControlledZone> {
-                new ColdCallingControlledZone{ Id=1},
-            }) ;
-            geometryRepo = new MockRepo<ColdCallingControlledZoneGeometry>(new List<ColdCallingControlledZoneGeometry> { 
-                new ColdCallingControlledZoneGeometry{ Id=1,ColdCallingControlledZoneID=1},
-            });
+            var geometryList = new List<ColdCallingControlledZoneGeometry> {
+                new ColdCallingControlledZoneGeometry{ Id=1,ColdCallingControlledZoneID=1,GeometryType=3,
+                    Coordinates="[[{\"Latitude\":-0.00,\"Longitude\":0.00},{\"Latitude\":-0.00,\"Longitude\":0.00},{\"Latitude\":-0.00,\"Longitude\":0.00}]]" } };
+            var coldCallList = new List<ColdCallingControlledZone> {
+                new ColdCallingControlledZone{ Id=1, Geometry = geometryList[0], ObjectId=1,Zones="Zone A",Ward="Ward A"},};
 
+            geometryRepo = new MockRepo<ColdCallingControlledZoneGeometry>(geometryList);
+            coldCallRepo = new MockRepo<ColdCallingControlledZone>(coldCallList) ;
+            dbContext = new Mock<DatabaseContext>();
+
+            dbContext.Setup(x => x.ColdCallingControlledZones).Returns(coldCallRepo.Object);
+            dbContext.Setup(x => x.ColdCallingControlledZoneGeometries).Returns(geometryRepo.Object);
             dbContext.Setup(x => x.Set<ColdCallingControlledZone>()).Returns(coldCallRepo.Object);
             dbContext.Setup(x => x.Set<ColdCallingControlledZoneGeometry>()).Returns(geometryRepo.Object);
 
@@ -51,9 +55,28 @@ namespace EgretApi.Tests
             if (isSuccess)
             {
                 Assert.True(result.IsSuccess, "CreateColdCallingControlledZone Success");
-                Assert.Equal(0, result.Data);
+                coldCallRepo.Verify(x => x.Add(It.IsAny<ColdCallingControlledZone>()),Times.Once);
             }
         }
+
+        [Theory]
+        [InlineData(true, 1)]
+        [InlineData(false, 2)]
+        public void GetColdCallingControlledZone(bool isSuccess, int Id)
+        {
+            // Act
+            var result = geoJsonService.GetColdCallingControlledZone(Id);
+
+            // Assert
+            Assert.NotNull(result);
+
+            if (isSuccess)
+            {
+                Assert.True(result.IsSuccess, "GetColdCallingControlledZone Success");
+                Assert.NotNull(result.Data);
+            }
+        }
+
         [Theory]
         [InlineData(true, 1)]
         [InlineData(false, 2)]
@@ -77,6 +100,24 @@ namespace EgretApi.Tests
             {
                 Assert.True(result.IsSuccess, "UpdateColdCallingControlledZone Success");
                 Assert.Equal(1, result.Data);
+            }
+        }
+
+        [Theory]
+        [InlineData(true, 1)]
+        [InlineData(false, 2)]
+        public void DeleteColdCallingControlledZone(bool isSuccess, int Id)
+        {
+            // Act
+            var result = geoJsonService.DeleteColdCallingControlledZone(Id);
+
+            // Assert
+            Assert.NotNull(result);
+
+            if (isSuccess)
+            {
+                Assert.True(result.IsSuccess, "DeleteColdCallingControlledZone Success");
+                coldCallRepo.Verify(x => x.Remove(It.IsAny<ColdCallingControlledZone>()), Times.Once);
             }
         }
     }
